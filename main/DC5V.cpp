@@ -1,7 +1,8 @@
 /*
-    Ajuste y control de 2 pines de PWM para el ATmega2560 programado con arduino.
-    by Angel Habid Navarro 09/27/2024 V0.1
+    Ajuste y control de 2 pines de PWM para el ATmega2560.
+    by Angel Habid Navarro 09/27/2024 V0.2
 */
+
 #include "DC5V.h"
 
 void setDCVoltage(float voltage) {
@@ -19,19 +20,40 @@ void setDCVoltage(float voltage) {
     OCR1A = (dutyCycle * ICR1) / 255; // Configuramos el duty cycle
 }
 
+
+float readVoltageInput() {
+    String input = "";
+    char receivedChar;
+    float voltage = -1.0;
+
+    while (true) {
+        if (Serial.available() > 0) {
+            receivedChar = Serial.read();
+            // Ignoramos caracteres de nueva línea o retorno de carro
+            if (receivedChar != '\n' && receivedChar != '\r') {
+                input += receivedChar;
+            } else if (input.length() > 0) {
+                // Intentamos convertir la entrada a un valor flotante
+                voltage = input.toFloat();
+                break;
+            }
+        }
+    }
+    return voltage;
+}
+
 void VDC5Menu() {
     float voltage = 0.0;
 
     Serial.println("Ingresa el valor de voltaje que deseas (Entre 0V y 5V):");
 
     while (true) {
-        while (Serial.available() == 0) {} // Espera entrada serial
-
-        voltage = Serial.parseFloat();
+        voltage = readVoltageInput(); // Lee la entrada con validación
         if (voltage >= 0.0 && voltage <= 5.0) {
             setDCVoltage(voltage);
             Serial.print("El voltaje se ajustó a: ");
             Serial.println(voltage, 2); // Mostramos el voltaje con 2 decimales
+            break;
         } else {
             Serial.println("Valor inválido. Ingresa un valor entre 0V y 5V.");
         }

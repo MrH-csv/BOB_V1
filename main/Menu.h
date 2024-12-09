@@ -9,10 +9,10 @@
 //Arduino pin selection...
 
 //Variables
-extern int loop_ctl;
+
 //Prototypes
 int menu_1(void);
-void s_case_1 (int);
+
 
 
 #endif

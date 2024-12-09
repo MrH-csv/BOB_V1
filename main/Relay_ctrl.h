@@ -1,15 +1,13 @@
 /*
-  by Angel Habid Navarro 12/09/2024 BOB_V0.1
+  by Angel Habid Navarro 09/27/2024 V0.3
 */
-
 #ifndef RELAY_CTRL_H
 #define RELAY_CTRL_H
 
-#include <avr/io.h>
-#include <stdio.h>
+#include "Arduino.h"
 
 // Prototipos
-void configureRelay(uint8_t channel, uint8_t state);
-void displayMenu();
+void configureRelay(int channel, int state); // Añadido el parámetro channel
+void displayMenu(); // Sin cambios
 
 #endif
