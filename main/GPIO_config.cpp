@@ -1,4 +1,10 @@
-#include "GPIO_init.h"
+/*
+  Control de un GPIO en proyecto BOB_V1
+  usando el ATmega2560.
+  by Angel Habid Navarro 09/28/2024 V0.1
+*/
+#include "Arduino.h"
+#include "GPIO_config.h"
 
 void GPIO_init (void)
 {
@@ -15,4 +21,3 @@ void GPIO_init (void)
     DDRK |= 0xFF;//Port K as output.
     DDRL |= 0xFF;//Port L as output.
 }
-
